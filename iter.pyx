@@ -49,7 +49,7 @@ cdef class cy_iter:
 
 def run():
     import time
-    arr = np.random.rand(124, 71, 34, 56)*10
+    arr = np.random.rand(800, 600)*10
     arr = arr.astype(np.int)
 
     t = time.time()
@@ -68,3 +68,13 @@ def run():
 
     print "Cython took ", time.time() - t
     print "ans = ",c_ans
+
+    py_iter = np.nditer(arr)
+
+    py_ans = 0
+    t = time.time()
+    for val in py_iter:
+        py_ans += val
+
+    print "Python took ", time.time() - t
+    print "ans = ", py_ans
